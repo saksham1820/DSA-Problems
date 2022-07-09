@@ -12,6 +12,8 @@ Explanation :
 array is 7.
 
 Solution:
+1. Brute Force- Sort and print index k-1
+2. Quick Select-
 class Solution{
     public:
     // arr : given array
