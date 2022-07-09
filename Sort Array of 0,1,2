@@ -12,9 +12,8 @@ Explanation:
 into ascending order.
 
 Solution:
-1. Brute Force - 3 loops
-2. Sort Algo 
-3. 3 Pointer - 
+1. Sort Algo 
+2. 3 Pointer - 
 class Solution
 {
     public:
