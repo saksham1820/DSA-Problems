@@ -1,0 +1,15 @@
+Link: https://practice.geeksforgeeks.org/problems/reverse-an-array/0
+
+Given an array A of size N, print the reverse of it.
+
+Input:
+1
+4
+1 2 3 4
+Output:
+4 3 2 1
+
+Algo:
+Step1->Initialize pointers i and j with 0 and n-1
+Step2->While i!=j, start swapping arr[i] and arr[j] 
+Step3->i++, j-- 
