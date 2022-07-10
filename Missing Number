@@ -1,0 +1,27 @@
+Link: https://practice.geeksforgeeks.org/problems/missing-number-in-array1416/1
+
+Given an array of size N-1 such that it only contains distinct integers in the range of 1 to N. Find the missing element.
+
+Input:
+N = 5
+A[] = {1,2,3,5}
+Output: 4
+
+Solution:
+1. O(n) space - Create another array and fill according to indices and missed index is missing.
+2. Sum - sum(1,N) - arr_sum = Missing
+3. Bit Magic using XOR - 
+class Solution{
+  public:
+    int MissingNumber(vector<int>& array, int n) {
+        int sum = 0, arr_sum = 0;
+        for(int i = 1; i <= n; i++){
+            sum ^= i;
+        }
+        for(int i = 0; i < n-1; i++){
+            arr_sum ^= array[i];
+        }
+        return sum^arr_sum;
+        // Your code goes here
+    }
+};
