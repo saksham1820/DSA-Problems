@@ -1,0 +1,45 @@
+Link: https://practice.geeksforgeeks.org/problems/subarray-with-given-sum-1587115621/1
+
+Given an unsorted array A of size N that contains only non-negative integers, find a continuous sub-array which adds to a given number S.
+In case of multiple subarrays, return the subarray which comes first on moving from left to right.
+
+Input:
+N = 5, S = 12
+A[] = {1,2,3,7,5}
+Output: 2 4
+Explanation: The sum of elements 
+from 2nd position to 4th position 
+is 12.
+
+Solution:
+1. Brute Force - Iterate repeatedly to find the sum that equals s
+2. 2 Pointer - 
+class Solution
+{
+    public:
+    //Function to find a continuous sub-array which adds up to a given number.
+    vector<int> subarraySum(int arr[], int n, long long s)
+    {
+        vector<int> res;
+        int sum = 0;
+        int pointer1 = 0, pointer2 = 0;
+        while(pointer1<=n-1 && s>0){
+            if(sum<s){
+                sum += arr[pointer2];
+                pointer2++;
+            }
+            else if(sum>s){
+                sum -= arr[pointer1];
+                pointer1++;
+            }
+            else if(sum == s){
+                res.push_back(pointer1+1);
+                res.push_back(pointer2);
+                return res;
+            }
+        }
+        // Your code here
+        res.push_back(-1);
+        return res;
+    }
+};
