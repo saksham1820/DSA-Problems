@@ -1,0 +1,35 @@
+Link: https://practice.geeksforgeeks.org/problems/move-all-negative-elements-to-end1813/1
+
+Given an unsorted array arr[] of size N having both negative and positive integers. The task is place all negative element at the end of array without changing the order of positive element and negative element.
+
+Input : 
+N = 8
+arr[] = {1, -1, 3, 2, -7, -5, 11, 6 }
+Output : 
+1  3  2  11  6  -1  -7  -5
+
+Solution:
+class Solution{
+    public:
+    void segregateElements(int arr[],int n)
+    {
+        vector<int> pos, neg;
+        int i;
+        for(int j = 0; j < n; j++){
+            if(arr[j] < 0){
+                neg.push_back(arr[j]);
+            }
+            else{
+                pos.push_back(arr[j]);
+            }
+        }
+        
+        for(int j = 0; j < n; j++){
+            if(j<pos.size())
+            arr[j] = pos[j];
+            else
+            arr[j] = neg[j - pos.size()];
+        }
+        // Your code goes here
+    }
+};
