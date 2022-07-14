@@ -1,0 +1,57 @@
+Link: https://practice.geeksforgeeks.org/problems/spirally-traversing-a-matrix-1587115621/1#
+
+Given a matrix of size r*c. Traverse the matrix in spiral form.
+
+Input:
+r = 4, c = 4
+matrix[][] = {{1, 2, 3, 4},
+           {5, 6, 7, 8},
+           {9, 10, 11, 12},
+           {13, 14, 15,16}}
+Output: 
+1 2 3 4 8 12 16 15 14 13 9 5 6 7 11 10
+
+Solution:
+class Solution
+{   
+    public: 
+    //Function to return a list of integers denoting spiral traversal of matrix.
+    vector<int> spirallyTraverse(vector<vector<int> > matrix, int r, int c) 
+    {
+        int left_pointer = 0;
+        int right_pointer = c-1;
+        int top_pointer = 0;
+        int bottom_pointer = r-1;
+        int direction = 0;
+        vector<int> ans;
+        
+        while(top_pointer<=bottom_pointer && left_pointer<=right_pointer){
+            if(direction == 0){
+                for(int i = left_pointer; i <= right_pointer; i++){
+                    ans.push_back(matrix[top_pointer][i]);        
+                }
+                top_pointer++;
+            }
+            if(direction == 1){
+                for(int i = top_pointer; i <= bottom_pointer; i++){
+                    ans.push_back(matrix[i][right_pointer]);        
+                }
+                right_pointer--;
+            }
+            if(direction == 2){
+                for(int i = right_pointer; i >= left_pointer; i--){
+                    ans.push_back(matrix[bottom_pointer][i]);        
+                }
+                bottom_pointer--;
+            }
+            if(direction == 3){
+                for(int i = bottom_pointer; i >= top_pointer; i--){
+                    ans.push_back(matrix[i][left_pointer]);        
+                }
+                left_pointer++;
+            }
+            direction = (direction+1)%4; 
+        }
+        return ans;
+    }
+};
