@@ -1,0 +1,60 @@
+Link: https://leetcode.com/problems/add-strings/submissions/
+
+Given two non-negative integers, num1 and num2 represented as string, return the sum of num1 and num2 as a string.
+
+You must solve the problem without using any built-in library for handling large integers (such as BigInteger). You must also not convert the inputs to integers directly.
+
+Input: num1 = "11", num2 = "123"
+Output: "134"
+
+Solution:
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        int pointer1 = num1.length();
+        int pointer2 = num2.length();
+        int n = min(pointer1, pointer2);
+        pointer1--;
+        pointer2--;
+        string result = "";
+        int carry = 0;
+        int pointer = 0;
+        while(n--){  
+            int part_ans = carry + num1[pointer1--] + num2[pointer2--] - 96;
+            carry = part_ans/10;
+            result += '0' + (part_ans%10);
+        }
+        
+        if(pointer2 >= 0){
+            while(pointer2 >= 0){
+                int part_ans = carry + num2[pointer2--] - 48;
+                carry = part_ans/10;
+                result += '0' + (part_ans%10);
+            }
+        }
+        
+        else if(pointer1 >= 0){
+            while(pointer1 >= 0){
+                int part_ans = carry + num1[pointer1--] - 48;
+                carry = part_ans/10;
+                result += '0' + (part_ans%10);
+            }
+        }
+        
+        if(carry){
+            result += '0' + carry;
+        }
+        
+        pointer1 = 0;
+        pointer2 = result.length()-1;
+        while(pointer1<pointer2){
+            int temp = result[pointer1];
+            result[pointer1] = result[pointer2];
+            result[pointer2] = temp;
+            pointer1++;
+            pointer2--;
+        }
+       
+        return result;
+    }
+};
