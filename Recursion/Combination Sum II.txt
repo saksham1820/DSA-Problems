@@ -1,0 +1,52 @@
+https://leetcode.com/problems/combination-sum-ii/
+
+Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sum to target.
+
+Each number in candidates may only be used once in the combination.
+
+Note: The solution set must not contain duplicate combinations.
+
+ 
+
+Example 1:
+
+Input: candidates = [10,1,2,7,6,1,5], target = 8
+Output: 
+[
+[1,1,6],
+[1,2,5],
+[1,7],
+[2,6]
+]
+
+class Solution {
+public:
+    
+    void f(int idx, vector<int> sub_seq, vector<int> candidates, int target, vector<vector<int>>& res){
+        if(target == 0){
+            res.push_back(sub_seq);
+            return;
+        }
+        
+        for(int i = idx; i < candidates.size(); i++){
+            if((i > idx) && (candidates[i] == candidates[i-1])){
+                continue;
+            }    
+            if(candidates[i] > target){
+                break;
+            }
+            sub_seq.push_back(candidates[i]);
+            f(i + 1, sub_seq, candidates, target - candidates[i], res);
+            sub_seq.pop_back();
+        }
+    }
+
+    
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+        sort(candidates.begin(), candidates.end());
+        vector<vector<int>> res;
+        vector<int> sub_seq;
+        f(0, sub_seq, candidates, target, res);
+        return res;
+    }
+};
