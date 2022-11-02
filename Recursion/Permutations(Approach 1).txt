@@ -1,0 +1,36 @@
+https://leetcode.com/problems/permutations/
+
+Given an array nums of distinct integers, return all the possible permutations. You can return the answer in any order.
+Example 1:
+
+Input: nums = [1,2,3]
+Output: [[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+
+Solution 1:
+class Solution {
+public:
+    void f(int idx, vector<int> nums, bool frequency[], vector<int> &sub_seq, vector<vector<int>> &res){
+        if(sub_seq.size() == nums.size()){
+            res.push_back(sub_seq);
+            return;
+        }
+        for(int i = idx; i < nums.size(); i++){
+            if(frequency[i] == 1) continue;
+            frequency[i] = 1;
+            sub_seq.push_back(nums[i]);
+            f(idx, nums, frequency, sub_seq, res);
+            sub_seq.pop_back();
+            frequency[i] = 0;
+        }
+    }
+    vector<vector<int>> permute(vector<int>& nums) {
+        bool frequency[nums.size()];
+        for(int i = 0; i < nums.size(); i++){
+            frequency[i] = 0;
+        }
+        vector<int> sub_seq;
+        vector<vector<int>> res;
+        f(0, nums, frequency, sub_seq, res);
+        return res;
+    }
+};
