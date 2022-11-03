@@ -1,0 +1,71 @@
+The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
+
+Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.
+
+Input: n = 4
+Output: [[".Q..","...Q","Q...","..Q."],["..Q.","Q...","...Q",".Q.."]]
+Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above
+
+SOlution 1:
+class Solution {
+public:
+    
+    bool isSafe(int row, int col, vector<string> board, int n){
+        int temp_row = row;
+        int temp_col = col;
+        
+        while(temp_col >= 0){
+            if(board[temp_row][temp_col] == 'Q'){
+                return false;
+            }
+            temp_col--;
+        }
+        temp_col = col;
+        
+        while(temp_col >= 0 && temp_row >= 0){
+            if(board[temp_row][temp_col] == 'Q'){
+                return false;
+            }
+            temp_row--;
+            temp_col--;
+        }
+        temp_row = row;
+        temp_col = col;
+        
+        while(temp_row < n && temp_col >= 0){
+            if(board[temp_row][temp_col] == 'Q'){
+                return false;
+            }
+            temp_row++;
+            temp_col--;
+        }
+        return true;
+    }
+    
+    void f(int col, vector<string> &board, int n, vector<vector<string>> &res){
+        if(col == n){
+            res.push_back(board);
+            return;
+        }
+        for(int row = 0; row < n; row++){
+            if(isSafe(row, col, board, n)){
+                board[row][col] = 'Q';
+                f(col + 1, board, n, res);
+                board[row][col] = '.';
+            }
+        }
+    }
+    
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> res;
+        vector<string> board;
+        string dots(n, '.');
+        for(int i = 0; i < n; i++){
+            board.push_back(dots);
+        }
+        f(0, board, n, res);
+        return res;
+    }
+};
